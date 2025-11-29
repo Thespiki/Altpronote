@@ -7,12 +7,15 @@ def create_app(config_object=None):
     app = Flask(__name__)
     app.config.setdefault('SQLALCHEMY_DATABASE_URI', 'sqlite:///altpronote.db')
     app.config.setdefault('SQLALCHEMY_TRACK_MODIFICATIONS', False)
+    app.config.setdefault('SECRET_KEY', 'dev-secret-key-change-in-production')
 
     db.init_app(app)
 
     # Register blueprints / routes
     from .auth import auth_bp
     app.register_blueprint(auth_bp)
+    from .permissions import permissions_bp
+    app.register_blueprint(permissions_bp)
     from .frontend import frontend_bp
     app.register_blueprint(frontend_bp)
 

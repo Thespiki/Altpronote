@@ -36,7 +36,11 @@ document.addEventListener('DOMContentLoaded', function(){
       fd.forEach((v,k)=>{ data[k]=v; });
       var res = await postJSON('/register', data);
       var out = document.getElementById('registerResult');
-      if(res.status===201) out.textContent = '✔ ' + (res.body.message || 'Compte créé');
+      if(res.status===201){
+        try{ localStorage.setItem('alt-token', res.body.token); }catch(e){}
+        out.textContent = '✔ ' + (res.body.message || 'Compte créé');
+        setTimeout(function(){ window.location.href = '/dashboard'; }, 1000);
+      }
       else out.textContent = '✖ ' + (res.body.error || JSON.stringify(res.body));
     });
   }
@@ -51,7 +55,11 @@ document.addEventListener('DOMContentLoaded', function(){
       fd.forEach((v,k)=>{ data[k]=v; });
       var res = await postJSON('/login', data);
       var out = document.getElementById('loginResult');
-      if(res.status===200) out.textContent = '✔ ' + (res.body.message || 'Connecté');
+      if(res.status===200){
+        try{ localStorage.setItem('alt-token', res.body.token); }catch(e){}
+        out.textContent = '✔ ' + (res.body.message || 'Connecté');
+        setTimeout(function(){ window.location.href = '/dashboard'; }, 1000);
+      }
       else out.textContent = '✖ ' + (res.body.error || JSON.stringify(res.body));
     });
   }

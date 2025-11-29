@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Altpronote — Profile</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="theme-blue">
+  <header class="site-header">
+    <h1>Altpronote — Profile</h1>
+    <nav class="nav-bar">
+      <a href="/dashboard" class="nav-link">Dashboard</a>
+      <a href="/profile" class="nav-link active">Profile</a>
+      <a href="/permissions" class="nav-link">Permissions</a>
+      <a href="#" onclick="logout()" class="nav-link">Logout</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="toolbar">
+      <div class="theme-picker">
+        <span>Theme</span>
+        <div class="swatches">
+          <button class="swatch" data-theme="theme-blue" title="Bleu" style="background:#2b6cb0"></button>
+          <button class="swatch" data-theme="theme-green" title="Vert" style="background:#2f855a"></button>
+          <button class="swatch" data-theme="theme-purple" title="Violet" style="background:#6b46c1"></button>
+          <button class="swatch" data-theme="theme-orange" title="Orange" style="background:#dd6b20"></button>
+        </div>
+      </div>
+    </section>
+
+    <div class="card">
+      <h2>Your Profile</h2>
+      <div id="profileInfo" style="margin-top:16px"></div>
+    </div>
+  </main>
+
+  <script src="{{ url_for('static', filename='profile.js') }}"></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from . import db
 from .models import User, Role
+from .auth_utils import encode_token, token_required
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -31,7 +32,8 @@ def register():
     db.session.add(user)
     db.session.commit()
 
-    return jsonify({'message': 'user created', 'user': user.to_dict()}), 201
+    token = encode_token(user.id)
+    return jsonify({'message': 'user created', 'token': token, 'user': user.to_dict()}), 201
 
 
 @auth_bp.route('/login', methods=['POST'])
@@ -47,5 +49,16 @@ def login():
     if user is None or not user.check_password(password):
         return jsonify({'error': 'invalid credentials'}), 401
 
-    # Placeholder: return basic info. Replace with token/session later.
-    return jsonify({'message': 'login successful', 'user': user.to_dict()}), 200
+    token = encode_token(user.id)
+    return jsonify({'message': 'login successful', 'token': token, 'user': user.to_dict()}), 200
+
+
+@auth_bp.route('/me', methods=['GET'])
+@token_required
+def get_current_user():
+    """Get current authenticated user info."""
+    user = User.query.get(request.user_id)
+    if not user:
+        return jsonify({'error': 'user not found'}), 404
+    return jsonify({'user': user.to_dict()}), 200
+
