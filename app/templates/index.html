@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Altpronote — Auth</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="referrer" content="no-referrer">
+</head>
+<body class="theme-blue">
+  <header class="site-header">
+    <h1>Altpronote</h1>
+  </header>
+
+  <main class="container">
+    <section class="toolbar">
+      <div class="theme-picker">
+        <span>Theme</span>
+        <div class="swatches">
+          <button class="swatch" data-theme="theme-blue" title="Bleu" style="background:#2b6cb0"></button>
+          <button class="swatch" data-theme="theme-green" title="Vert" style="background:#2f855a"></button>
+          <button class="swatch" data-theme="theme-purple" title="Violet" style="background:#6b46c1"></button>
+          <button class="swatch" data-theme="theme-orange" title="Orange" style="background:#dd6b20"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="cards">
+      <div class="card">
+        <h2>Créer un compte</h2>
+        <form id="registerForm">
+          <input name="username" placeholder="Nom d'utilisateur" required>
+          <input name="password" type="password" placeholder="Mot de passe" required>
+          <input name="age" type="number" placeholder="Âge">
+          <input name="email" type="email" placeholder="Email">
+          <input name="phone" placeholder="Téléphone">
+          <input name="address" placeholder="Adresse">
+          <select name="role">
+            <option value="élève">élève</option>
+            <option value="professeur">professeur</option>
+            <option value="personnel d'administration">personnel d'administration</option>
+          </select>
+          <button type="submit" class="btn">Créer</button>
+        </form>
+        <div class="result" id="registerResult" aria-live="polite"></div>
+      </div>
+
+      <div class="card">
+        <h2>Se connecter</h2>
+        <form id="loginForm">
+          <input name="username" placeholder="Nom d'utilisateur" required>
+          <input name="password" type="password" placeholder="Mot de passe" required>
+          <button type="submit" class="btn">Se connecter</button>
+        </form>
+        <div class="result" id="loginResult" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
